@@ -1,19 +1,36 @@
-<div class="col s12" ng-controller="ListarCtrl">
-    <div class="grey lighten-5">
-        <a class="waves-effect waves-light btn red lighten-1 m-10" ng-click="listarPedidos()"><i class="material-icons left">list</i>Listar pedidos</a>
-        <a class="waves-effect waves-light btn red lighten-1 m-10" ng-click="adicionarProduto()">Cadastrar produto</a>
-    </div>
-    <div class="row padding-card m10">
-        <div class="col s12 m12">
-            <div class="card white darken-1">
-                <div class="card-content white-text">
-                    <div>
-                        Indique um endereço <input type="text" ng-model="adress" id="address-input">
-                        <button ng-click="searchAddress();">Pesquisar</button>
-                    </div>
+<md-content class="md-padding" layout-xs="column" layout="column" ng-controller="ListarCtrl">
+    <div flex layout="column">
+        <md-card>
+            <div flex layout="row">
+                <div flex="30">
+                    <md-toolbar layout="row" class="md-hue-2">
+                        <div class="md-toolbar-tools">
+                            <span>Contatos</span>
+                            <div flex layout-align="end center">
+                                <md-button class="md-fab md-mini btn-add" aria-label="Adicionar contato">
+                                    <i class="material-icons">contact_phone</i>
+                                </md-button>
+                            </div>
+                        </div>
+                    </md-toolbar>
+
+                    <md-content>
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-repeat="item in listResult" ng-click="mostraLocalizacao(item.id)">
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ item.nome }}</h3>
+                                    <h4>{{ item.telefone }}</h4>
+                                    <p>{{ item.endereco | uppercase}}</p>
+                                </div>
+                                <md-divider></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </div>
+                <div flex="70">
                     <div id="map"></div>
                 </div>
             </div>
-        </div>
+        </md-card>
     </div>
-</div>
+</md-content>

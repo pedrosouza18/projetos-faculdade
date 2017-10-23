@@ -24,37 +24,34 @@ angular.module('agenda.listarContatos')
                 center: $scope.uluru
             });
 
-
-
         }
 
         google.maps.event.addDomListener(window, 'load', $scope.initMap);
 
 
-        $scope.searchAddress = function() {
-
+        $scope.mostraLocalizacao = function (id) {
             $scope.listResult.forEach(function (contato) {
+                if(id == contato.id){
+                    $scope.geocoder = new google.maps.Geocoder();
 
-                $scope.geocoder = new google.maps.Geocoder();
+                    $scope.geocoder.geocode({address: contato.endereco}, function(results, status) {
+                        console.log(contato.endereco);
 
-                console.log(contato.endereco);
+                        if (status == google.maps.GeocoderStatus.OK) {
 
-                $scope.geocoder.geocode({address: contato.endereco}, function(results, status) {
-                    console.log(contato.endereco);
+                            $scope.myResult = results[0].geometry.location;
 
-                    if (status == google.maps.GeocoderStatus.OK) {
+                            createMarker($scope.myResult);
 
-                        $scope.myResult = results[0].geometry.location;
+                            $scope.map.setCenter($scope.myResult);
 
-                        createMarker($scope.myResult);
-
-                        $scope.map.setCenter($scope.myResult);
-
-                        $scope.map.setZoom(17);
-                    }
-                });
+                            $scope.map.setZoom(17);
+                        }
+                    });
+                }
             });
         }
+
 
         function createMarker(latlng) {
 
