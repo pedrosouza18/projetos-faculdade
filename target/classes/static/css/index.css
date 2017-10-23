@@ -1,0 +1,184 @@
+.mt-10 {
+	margin-top: -10px;
+	padding: 4px;
+}
+
+.m10 {
+	margin-top: 10px;
+}
+
+tbody tr td {
+	color: black;
+}
+
+.mt-20 {
+	margin-top: -20px;
+}
+
+.margin-cards {
+	margin-top: -10px;
+}
+
+.mt-15 {
+	margin-top: 15px;
+}
+
+h1 {
+	color: white;
+}
+
+.card-content {
+	padding: 0px !important;
+}
+
+#div-botao {
+	margin-top: -100px;
+}
+
+.p16 {
+	padding: 16px;
+}
+
+#formulario {
+	padding-top: 10px;
+}
+
+.lista-erros {
+	display: none;
+}
+
+.erro {
+	color: red;
+	font-weight: bold;
+}
+
+.situacao-invalida {
+	background-color: rgba(229, 30, 30, 0.72);
+}
+
+.situacao-invalida td {
+	color: white;
+	font-weight: bold;
+}
+
+.fadeOut {
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.btn-floating {
+	background-color: #EF5350 !important;
+}
+
+tfoot tr td {
+	color: black;
+	font-weight: bold;
+}
+
+.progress {
+	position: relative;
+	height: 4px;
+	display: block;
+	width: 100%;
+	background-color: rgba(239, 83, 80, 0.25);
+	border-radius: 2px;
+	margin: .5rem 0 1rem 0;
+	overflow: hidden;
+}
+
+.progress .indeterminate {
+	background-color: #ef5350;
+}
+
+.progress .indeterminate:before {
+	content: '';
+	position: absolute;
+	background-color: #ef5350;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	will-change: left, right;
+	-webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+	animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+.progress .indeterminate:after {
+	content: '';
+	position: absolute;
+	background-color: #ef5350;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	will-change: left, right;
+	-webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+	animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+	-webkit-animation-delay: 1.15s;
+	animation-delay: 1.15s;
+}
+
+.m-10 {
+	margin: 10px;
+}
+
+.collection a.collection-item {
+	display: block;
+	-webkit-transition: .25s;
+	transition: .25s;
+	color: #ef5350;
+}
+
+.padding-card {
+	padding: 3px 10px 3px 10px;;
+}
+
+.titulo-pedidos {
+	height: 2.5rem;
+	text-align: center;
+	color: #ef5350;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+	border-bottom: 1px solid #ef5350;
+	-webkit-box-shadow: 0 1px 0 0 #26a69a;
+	box-shadow: 0 1px 0 0 #ef5350;
+}
+
+input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+	color: #ef5350;
+}
+
+input.valid:not([type]), input.valid:not([type]):focus, input[type=text].valid:not(.browser-default), input[type=text].valid:not(.browser-default):focus, input[type=password].valid:not(.browser-default), input[type=password].valid:not(.browser-default):focus, input[type=email].valid:not(.browser-default), input[type=email].valid:not(.browser-default):focus, input[type=url].valid:not(.browser-default), input[type=url].valid:not(.browser-default):focus, input[type=time].valid:not(.browser-default), input[type=time].valid:not(.browser-default):focus, input[type=date].valid:not(.browser-default), input[type=date].valid:not(.browser-default):focus, input[type=datetime].valid:not(.browser-default), input[type=datetime].valid:not(.browser-default):focus, input[type=datetime-local].valid:not(.browser-default), input[type=datetime-local].valid:not(.browser-default):focus, input[type=tel].valid:not(.browser-default), input[type=tel].valid:not(.browser-default):focus, input[type=number].valid:not(.browser-default), input[type=number].valid:not(.browser-default):focus, input[type=search].valid:not(.browser-default), input[type=search].valid:not(.browser-default):focus, textarea.materialize-textarea.valid, textarea.materialize-textarea.valid:focus, .select-wrapper.valid>input.select-dropdown {
+	border-bottom: 1px solid #ef5350;
+	-webkit-box-shadow: 0 1px 0 0 #4CAF50;
+	box-shadow: 0 1px 0 0 #ef5350;
+}
+
+.toast-error {
+	border-radius: 2px;
+	background-color: red;
+	font-weight: 300;
+	color: white;
+	font-weight: bold;
+
+}
+
+.toast-success {
+	border-radius: 2px;
+	background-color: forestgreen;
+	font-weight: 300;
+	color: white;
+	font-weight: bold;
+}
+
+.logo-ifome {
+	position: relative;
+	left: 45%;
+	height: 100px;
+	width: 120px;
+}
+
+
+#map {
+	height: 400px;
+	width: 100%;
+}

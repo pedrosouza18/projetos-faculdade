@@ -1,0 +1,19 @@
+<div class="col s12" ng-controller="ListarCtrl">
+    <div class="grey lighten-5">
+        <a class="waves-effect waves-light btn red lighten-1 m-10" ng-click="listarPedidos()"><i class="material-icons left">list</i>Listar pedidos</a>
+        <a class="waves-effect waves-light btn red lighten-1 m-10" ng-click="adicionarProduto()">Cadastrar produto</a>
+    </div>
+    <div class="row padding-card m10">
+        <div class="col s12 m12">
+            <div class="card white darken-1">
+                <div class="card-content white-text">
+                    <div>
+                        Indique um endereço <input type="text" ng-model="adress" id="address-input">
+                        <button ng-click="searchAddress();">Pesquisar</button>
+                    </div>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
