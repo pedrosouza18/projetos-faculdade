@@ -1,15 +1,34 @@
 angular.module('agenda.listarContatos')
-    .controller('ListarCtrl', ['$scope', '$state', 'buscaContatos', '$mdDialog', 'salvarContato', function($scope , $state, buscaContatos, $mdDialog, salvarContato) {
+    .filter('filterFavoritos', function () {
+        return function (lista, exibirFavoritos) {
+            var array = [];
+                lista.forEach(function (contato) {
+                    if(exibirFavoritos == true) {
+                        if(contato.favorito == true) {
+                            array.push(contato);
+                        }
+                    }
+                    else{
+                        array.push(contato);
+                    }
+                });
+
+            return array;
+        }
+
+    })
+    .controller('ListarCtrl', ['$scope', '$state', 'buscaContatos', '$mdDialog', 'salvarContato', 'atualizarContato', '$mdToast', 'excluirContato' , function($scope , $state, buscaContatos, $mdDialog, salvarContato, atualizarContato,$mdToast, excluirContato) {
 
         $scope.map;
         $scope.marker;
+
+        $scope.favoritos = false;
 
         $scope.listResult = [];
 
         buscaContatos.query()
             .$promise.then(function (data) {
                 $scope.listResult = data;
-                console.log($scope.listResult);
             })
             .catch(function (response) {
                 console.log(response);
@@ -35,7 +54,6 @@ angular.module('agenda.listarContatos')
                     $scope.geocoder = new google.maps.Geocoder();
 
                     $scope.geocoder.geocode({address: contato.endereco}, function(results, status) {
-                        console.log(contato.endereco);
 
                         if (status == google.maps.GeocoderStatus.OK) {
 
@@ -65,6 +83,16 @@ angular.module('agenda.listarContatos')
                 position: latlng
             });
         }
+        
+        $scope.mostrarFavoritos = function () {
+            $scope.listResult.forEach(function (contato) {
+                if ($scope.favoritos == true && contato.favorito == true) {
+                    return contato;
+                } else if ($scope.favoritos == false && contato.favorito == true || contato.favorito == false) {
+                    return contato;
+                }
+            });
+        }
 
         $scope.adicionarContato = function(ev) {
             $mdDialog.show({
@@ -87,17 +115,50 @@ angular.module('agenda.listarContatos')
         };
 
         $scope.salvaContato = function (object, lista) {
-            lista.push(object);
-            salvarContato.save(object);
-            console.log(object);
+            if(object.id){
+                atualizarContato.update({contatoId: object.id}, object);
+                $mdToast.show({
+                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato atualizado com sucesso!</b></div></md-toast>',
+                    hideDelay: 3000,
+                    position: 'right'
+                });
+            } else {
+
+                lista.push(object);
+                salvarContato.save(object);
+                $mdToast.show({
+                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato salvo com sucesso!</b></div></md-toast>',
+                    hideDelay: 3000,
+                    position: 'right'
+                });
+            }
+        }
+        
+        $scope.editarContato = function (ev, item) {
+            $mdDialog.show({
+                controller: DialogController,
+                locals: {
+                    object: item,
+                    lista: $scope.listResult,
+                    fnSave: $scope.salvaContato
+                },
+                templateUrl: 'listarcontatos/dialog/adicionar-contato.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
+                .then(function(answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
         }
 
         function DialogController($scope, $mdDialog,object, lista, fnSave) {
 
             $scope.object = object;
-            $scope.lista = lista;
 
-            console.log($scope.listResult);
+            $scope.lista = lista;
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -111,6 +172,44 @@ angular.module('agenda.listarContatos')
                 fnSave($scope.object, $scope.lista);
                 $mdDialog.hide();
             };
+        }
+        
+        $scope.marcarFavorito = function (item) {
+            atualizarContato.update({contatoId: item.id}, item);
+            if(item.favorito == true){
+                $mdToast.show({
+                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato adicionado aos favoritos!</b></div></md-toast>',
+                    hideDelay: 2000,
+                    position: 'right'
+                });
+            } else {
+                $mdToast.show({
+                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato removido dos favoritos!</b></div></md-toast>',
+                    hideDelay: 2000,
+                    position: 'right'
+                });
+            }
+        }
+
+        $scope.deletarContato = function (id) {
+            excluirContato.delete({contatoId: id})
+                .$promise.then(function (data) {
+                    $scope.listResult.forEach(function (contato) {
+                        if(contato.id == id){
+                            var indice = $scope.listResult.indexOf(contato);
+                            $scope.listResult.splice(indice, 1);
+                        }
+                    });
+
+                $mdToast.show({
+                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato deletado com sucesso!</b></div></md-toast>',
+                    hideDelay: 2000,
+                    position: 'right'
+                });
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
 
     }]);

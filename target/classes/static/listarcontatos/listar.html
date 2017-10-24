@@ -2,13 +2,18 @@
     <div flex layout="column">
         <md-card class="altura-card">
             <div flex layout="row">
-                <div flex="30">
+                <div flex="40">
                     <md-toolbar layout="row" class="md-hue-2">
-                        <div class="md-toolbar-tools">
+                        <div class="md-toolbar-tools" flex>
                             <span>Contatos</span>
-                            <div flex layout-align="end center">
+                            <div flex layout-align="end center" layout="row">
+                                <md-switch ng-model="favoritos" aria-label="Switch 1">
+                                    <span style="font-size: 16px;">Exibir favoritos</span>
+                                </md-switch>
+
                                 <md-button class="md-fab md-mini btn-add" ng-click="adicionarContato($event)" aria-label="Adicionar contato">
                                     <i class="material-icons">contact_phone</i>
+                                    <md-tooltip>Adicionar contato</md-tooltip>
                                 </md-button>
                             </div>
                         </div>
@@ -16,18 +21,43 @@
 
                     <md-content>
                         <md-list flex class="lista-contatos">
-                            <md-list-item class="md-3-line" ng-repeat="item in listResult" ng-click="mostraLocalizacao(item.id)">
-                                <div class="md-list-item-text" layout="column">
-                                    <h3>{{ item.nome }}</h3>
-                                    <h4>{{ item.telefone }}</h4>
-                                    <p>{{ item.endereco | uppercase}}</p>
+                            <md-list-item class="md-3-line" ng-repeat="item in listResult | filterFavoritos: favoritos | orderBy : 'nome'">
+                                <div class="md-list-item-text" layout="row" flex>
+                                    <div class="md-list-item-text" layout="column" flex="80">
+                                        <h3>{{ item.nome }}</h3>
+                                        <h4>{{ item.telefone |tel}}</h4>
+                                        <p>{{ item.endereco | uppercase}}</p>
+                                    </div>
+                                    <div class="md-list-item-text" layout="column" flex="20">
+                                        <div layout="row">
+                                            <div>
+                                                <md-checkbox style="margin-top: 11px;" ng-model="item.favorito" ng-change="marcarFavorito(item)" aria-label="Favorito"></md-checkbox>
+                                                <md-tooltip>Favorito</md-tooltip>
+                                            </div>
+                                            <md-button class="md-icon-button md-accent" ng-click="mostraLocalizacao(item.id)" aria-label="Mostrar localização">
+                                                <i class="material-icons cor-icone">map</i>
+                                                <md-tooltip class="h4">Mostrar localização</md-tooltip>
+                                            </md-button>
+                                        </div>
+                                        <div layout="row" style="margin-left: -16px;">
+                                            <md-button class="md-icon-button md-accent m10" ng-click="editarContato($event, item)" aria-label="Mostrar localização">
+                                                <i class="material-icons cor-icone">mode_edit</i>
+                                                <md-tooltip class="h4">Editar contato</md-tooltip>
+                                            </md-button>
+
+                                            <md-button class="md-icon-button md-accent m10" ng-click="deletarContato(item.id)" aria-label="Mostrar localização">
+                                                <i class="material-icons cor-icone">delete</i>
+                                                <md-tooltip class="h4">Excluir contato</md-tooltip>
+                                            </md-button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <md-divider></md-divider>
                             </md-list-item>
                         </md-list>
                     </md-content>
                 </div>
-                <div flex="70">
+                <div flex="60">
                     <div id="map"></div>
                 </div>
             </div>

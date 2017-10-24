@@ -23,3 +23,29 @@ app.factory('buscaContatos', function($resource) {
     });
 })
 
+app.factory('salvarContato', function($resource) {
+
+    return $resource('agenda', {}, {
+        save : {
+            method: 'POST'
+        }
+    });
+})
+
+app.factory('atualizarContato', function($resource) {
+
+    return $resource('agenda/atualizar/:contatoId', {}, {
+        'update' : {
+            method: 'PUT'
+        }
+    });
+})
+
+app.factory('excluirContato', function($resource) {
+
+    return $resource('agenda/excluir/:contatoId', {}, {
+        delete : {
+            method: 'DELETE'
+        }
+    });
+});

@@ -30,4 +30,17 @@ public class AgendaController {
     public void create(@RequestBody Agenda agenda){
         agendaRepository.save(agenda);
     }
+
+    @RequestMapping(value = "/atualizar/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void update(@PathVariable("id") Long id, @RequestBody Agenda agenda){
+        agendaRepository.save(agenda);
+    }
+
+    @RequestMapping(value = "/excluir/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void delete(@PathVariable("id") Long id){
+        agendaRepository.delete(id);
+    }
+
 }

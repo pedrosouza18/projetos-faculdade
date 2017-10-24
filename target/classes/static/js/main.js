@@ -1,4 +1,4 @@
-var app = angular.module("agenda", ['ngMaterial','ui.router', 'ngResource', 'agenda.listarContatos']);
+var app = angular.module("agenda", ['ngMaterial','ui.router', 'ngResource', 'agenda.listarContatos', 'ui.mask', 'brasil.filters']);
 
 app.config(function ($locationProvider, $urlRouterProvider) {
 

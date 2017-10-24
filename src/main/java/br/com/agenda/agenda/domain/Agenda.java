@@ -16,6 +16,15 @@ public class Agenda implements Serializable{
     private String nome;
     private String telefone;
     private String endereco;
+    private boolean favorito;
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+    }
 
     public Long getId() {
         return id;
