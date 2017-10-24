@@ -23,3 +23,11 @@ app.factory('buscaContatos', function($resource) {
     });
 })
 
+app.factory('salvarContato', function($resource) {
+
+    return $resource('agenda', {}, {
+        save : {
+            method: 'POST'
+        }
+    });
+})

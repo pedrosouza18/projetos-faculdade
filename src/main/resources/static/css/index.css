@@ -4,10 +4,22 @@
 }
 
 #map {
-	height: 400px;
+	height: 100%;
 	width: 100%;
 }
 
 .material-icons {
 	line-height: inherit;
+}
+
+.titulo {
+	text-align: center;
+}
+
+.lista-contatos {
+	height: 435px;
+}
+
+.altura-card {
+	height:500px;
 }

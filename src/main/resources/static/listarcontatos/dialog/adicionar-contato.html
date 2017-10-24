@@ -1,0 +1,45 @@
+<md-dialog aria-label="Adicionar contato">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Adicionar contato</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="material-icons">close</i></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" flex layout="column">
+                <md-input-container flex>
+                    <label>Nome</label>
+                    <input ng-model="object.nome" type="text" id="nome" name="nome">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>telefone</label>
+                    <input ng-model="object.telefone" type="text" id="telefone" name="telefone">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Endereço</label>
+                    <input ng-model="object.endereco" type="text" id="endereco" name="endereco">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" flex>
+            <div flex style="float: left;">
+                <md-button class="md-raised md-primary" ng-click="cancel()">
+                    Cancelar
+                </md-button>
+            </div>
+            <div flex style="float: right;" ng-click="salvar()">
+                <md-button class="md-raised md-primary">
+                    Salvar
+                </md-button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,5 +1,5 @@
 angular.module('agenda.listarContatos')
-    .controller('ListarCtrl', ['$scope', '$state', 'buscaContatos', function($scope , $state, buscaContatos) {
+    .controller('ListarCtrl', ['$scope', '$state', 'buscaContatos', '$mdDialog', 'salvarContato', function($scope , $state, buscaContatos, $mdDialog, salvarContato) {
 
         $scope.map;
         $scope.marker;
@@ -64,6 +64,53 @@ angular.module('agenda.listarContatos')
                 map: $scope.map,
                 position: latlng
             });
+        }
+
+        $scope.adicionarContato = function(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                locals: {
+                    object: $scope.object,
+                    lista: $scope.listResult,
+                    fnSave: $scope.salvaContato
+                },
+                templateUrl: 'listarcontatos/dialog/adicionar-contato.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
+            .then(function(answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+                $scope.status = 'You cancelled the dialog.';
+            });
+        };
+
+        $scope.salvaContato = function (object, lista) {
+            lista.push(object);
+            salvarContato.save(object);
+            console.log(object);
+        }
+
+        function DialogController($scope, $mdDialog,object, lista, fnSave) {
+
+            $scope.object = object;
+            $scope.lista = lista;
+
+            console.log($scope.listResult);
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+
+            $scope.salvar = function() {
+                fnSave($scope.object, $scope.lista);
+                $mdDialog.hide();
+            };
         }
 
     }]);
