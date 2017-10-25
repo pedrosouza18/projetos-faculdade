@@ -24,6 +24,8 @@ angular.module('agenda.listarContatos')
 
         $scope.favoritos = false;
 
+        $scope.actionList = false;
+
         $scope.listResult = [];
 
         buscaContatos.query()
@@ -83,16 +85,7 @@ angular.module('agenda.listarContatos')
                 position: latlng
             });
         }
-        
-        $scope.mostrarFavoritos = function () {
-            $scope.listResult.forEach(function (contato) {
-                if ($scope.favoritos == true && contato.favorito == true) {
-                    return contato;
-                } else if ($scope.favoritos == false && contato.favorito == true || contato.favorito == false) {
-                    return contato;
-                }
-            });
-        }
+
 
         $scope.adicionarContato = function(ev) {
             $mdDialog.show({
@@ -117,14 +110,15 @@ angular.module('agenda.listarContatos')
         $scope.salvaContato = function (object, lista) {
             if(object.id){
                 atualizarContato.update({contatoId: object.id}, object);
-                $mdToast.show({
-                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato atualizado com sucesso!</b></div></md-toast>',
-                    hideDelay: 3000,
-                    position: 'right'
+                    $mdToast.show({
+                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato atualizado com sucesso!</b></div></md-toast>',
+                        hideDelay: 3000,
+                        position: 'right'
                 });
             } else {
 
                 lista.push(object);
+
                 salvarContato.save(object);
                 $mdToast.show({
                     template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato salvo com sucesso!</b></div></md-toast>',
@@ -160,6 +154,8 @@ angular.module('agenda.listarContatos')
 
             $scope.lista = lista;
 
+            $scope.action = false;
+
             $scope.hide = function() {
                 $mdDialog.hide();
             };
@@ -169,47 +165,60 @@ angular.module('agenda.listarContatos')
             };
 
             $scope.salvar = function() {
-                fnSave($scope.object, $scope.lista);
-                $mdDialog.hide();
+                $scope.action = true;
+                setTimeout(function(){
+                    fnSave($scope.object, $scope.lista);
+                    $scope.action = false;
+                    $mdDialog.hide();
+                }, 3500);
             };
         }
         
         $scope.marcarFavorito = function (item) {
-            atualizarContato.update({contatoId: item.id}, item);
-            if(item.favorito == true){
-                $mdToast.show({
-                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato adicionado aos favoritos!</b></div></md-toast>',
-                    hideDelay: 2000,
-                    position: 'right'
-                });
-            } else {
-                $mdToast.show({
-                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato removido dos favoritos!</b></div></md-toast>',
-                    hideDelay: 2000,
-                    position: 'right'
-                });
-            }
+            $scope.actionList = true;
+
+            setTimeout(function(){
+                atualizarContato.update({contatoId: item.id}, item);
+                if(item.favorito == true){
+                    $scope.actionList = false;
+                    $mdToast.show({
+                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato adicionado aos favoritos!</b></div></md-toast>',
+                        hideDelay: 2000,
+                        position: 'right'
+                    });
+                } else {
+                    $scope.actionList = false;
+                    $mdToast.show({
+                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato removido dos favoritos!</b></div></md-toast>',
+                        hideDelay: 2000,
+                        position: 'right'
+                    });
+                }
+            }, 3500);
         }
 
         $scope.deletarContato = function (id) {
-            excluirContato.delete({contatoId: id})
-                .$promise.then(function (data) {
-                    $scope.listResult.forEach(function (contato) {
-                        if(contato.id == id){
-                            var indice = $scope.listResult.indexOf(contato);
-                            $scope.listResult.splice(indice, 1);
-                        }
+            $scope.actionList = true;
+            setTimeout(function(){
+                excluirContato.delete({contatoId: id})
+                    .$promise.then(function (data) {
+                        $scope.listResult.forEach(function (contato) {
+                            if(contato.id == id){
+                                var indice = $scope.listResult.indexOf(contato);
+                                $scope.listResult.splice(indice, 1);
+                            }
+                        });
+                    $scope.actionList = false;
+                    $mdToast.show({
+                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato deletado com sucesso!</b></div></md-toast>',
+                        hideDelay: 2000,
+                        position: 'right'
                     });
-
-                $mdToast.show({
-                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato deletado com sucesso!</b></div></md-toast>',
-                    hideDelay: 2000,
-                    position: 'right'
-                });
-            })
+                })
                 .catch(function (error) {
                     console.log(error);
                 });
+            }, 3500);
         }
 
     }]);

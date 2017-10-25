@@ -56,3 +56,7 @@ md-switch.md-default-theme.md-checked .md-thumb, md-switch.md-checked .md-thumb 
 md-switch.md-default-theme.md-checked .md-ink-ripple, md-switch.md-checked .md-ink-ripple {
   color: rgb(32, 224, 243);
 }
+
+.white-bg {
+    background: white;
+}
