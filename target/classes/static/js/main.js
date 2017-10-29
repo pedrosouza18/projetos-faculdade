@@ -3,9 +3,7 @@ var app = angular.module("agenda", ['ngMaterial','ui.router', 'ngResource', 'age
 app.config(function ($locationProvider, $urlRouterProvider) {
 
     $urlRouterProvider
-        .when('/404', '/error' , ['$state', function ($state) {
-            $state.go('listar');
-        }])
+        .when('/404', '/error', '/notFound')
         .otherwise('/');
 
     $locationProvider.html5Mode(true);
