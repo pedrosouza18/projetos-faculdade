@@ -38,7 +38,7 @@ angular.module('agenda.listarContatos')
 
 
         $scope.initMap = function() {
-
+            console.log('iniciado');
             $scope.uluru = {lat: -25.363, lng: 131.044};
             $scope.map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
@@ -47,8 +47,8 @@ angular.module('agenda.listarContatos')
 
         }
 
-        google.maps.event.addDomListener(window, 'load', $scope.initMap);
-
+        $scope.initMap();
+        //google.maps.event.addDomListener(window, 'load', );
 
         $scope.mostraLocalizacao = function (id) {
             $scope.listResult.forEach(function (contato) {

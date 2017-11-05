@@ -1,0 +1,6 @@
+br/com/agenda/agenda/service/impl/AgendaServiceImpl.class
+br/com/agenda/agenda/service/AgendaService.class
+br/com/agenda/agenda/domain/Agenda.class
+br/com/agenda/agenda/controller/AgendaController.class
+br/com/agenda/agenda/repository/AgendaRepository.class
+br/com/agenda/agenda/AgendaApplication.class
