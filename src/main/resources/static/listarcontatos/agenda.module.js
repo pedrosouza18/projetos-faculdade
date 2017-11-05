@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
 
     var listarState = {
         name: 'listar',
-        url: '/',
+        url: '/listar-contatos',
         templateUrl: 'listarcontatos/listar.html',
         controller: 'ListarCtrl'
     }

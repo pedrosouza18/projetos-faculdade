@@ -1,0 +1,22 @@
+<md-content class="md-padding" layout-xs="column" layout="column" ng-controller="LoginCtrl">
+    <div flex layout="column">
+        <md-card class="altura-card" flex="70" style="margin: 0 auto; height: auto;margin-top: 40px;">
+            <img src="login/logo/logo.png" alt="Logo agenda">
+            <form name="form" style="padding: 8px;">
+                <div layout="column" flex>
+                    <md-input-container flex>
+                        <label>Login</label>
+                        <input ng-model="object.login" type="text" name="login" id="login">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>Senha</label>
+                        <input ng-model="object.senha" type="password" name="senha" id="senha">
+                    </md-input-container>
+                </div>
+            </form>
+
+            <md-button class="md-raised md-primary" ng-click="entrar()">Entar</md-button>
+        </md-card>
+    </div>
+</md-content>
