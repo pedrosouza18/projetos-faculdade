@@ -1,6 +1,7 @@
 <md-content class="md-padding" layout-xs="column" layout="column" ng-controller="LoginCtrl">
     <div flex layout="column">
-        <md-card class="altura-card" flex="70" style="margin: 0 auto; height: auto;margin-top: 40px;">
+        <md-card class="altura-card" flex="70" style="margin: 0 auto; height: auto;margin-top: 40px; padding: 16px;">
+            <md-progress-linear md-mode="indeterminate" ng-if="loginCorreto"></md-progress-linear>
             <img src="login/logo/logo.png" alt="Logo agenda">
             <form name="form" style="padding: 8px;">
                 <div layout="column" flex>

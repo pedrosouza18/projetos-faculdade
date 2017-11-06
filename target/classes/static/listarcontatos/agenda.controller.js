@@ -48,7 +48,6 @@ angular.module('agenda.listarContatos')
         }
 
         $scope.initMap();
-        //google.maps.event.addDomListener(window, 'load', );
 
         $scope.mostraLocalizacao = function (id) {
             $scope.listResult.forEach(function (contato) {
