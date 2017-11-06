@@ -28,18 +28,20 @@ angular.module('agenda.listarContatos')
 
         $scope.listResult = [];
 
-        buscaContatos.query()
-            .$promise.then(function (data) {
+        function mostrarContatos() {
+            buscaContatos.query()
+                .$promise.then(function (data) {
                 $scope.listResult = data;
-                console.log($scope.listResult);
             })
             .catch(function (response) {
                 console.log(response);
             })
 
+        }
+
+        mostrarContatos();
 
         $scope.initMap = function() {
-            console.log('iniciado');
             $scope.uluru = {lat: -25.363, lng: 131.044};
             $scope.map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
@@ -90,49 +92,9 @@ angular.module('agenda.listarContatos')
         $scope.adicionarContato = function(ev) {
             $state.go('adicionar');
         };
-
-        $scope.salvaContato = function (item, lista) {
-            if(item.id){
-                console.log('atualizar');
-                atualizarContato.update({contatoId: item.id}, item);
-                    $mdToast.show({
-                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato atualizado com sucesso!</b></div></md-toast>',
-                        hideDelay: 3000,
-                        position: 'right'
-                });
-            } else {
-
-                console.log('salvar');
-                lista.push(item);
-
-                salvarContato.save(item);
-                $mdToast.show({
-                    template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato salvo com sucesso!</b></div></md-toast>',
-                    hideDelay: 3000,
-                    position: 'right'
-                });
-            }
-        }
         
-        $scope.editarContato = function (ev, item) {
-            console.log(item.id);
-            /*$mdDialog.show({
-                controller: DialogController,
-                locals: {
-                    object: item,
-                    lista: $scope.listResult,
-                    fnSave: $scope.salvaContato
-                },
-                templateUrl: 'listarcontatos/dialog/adicionar-contato.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true
-            })
-                .then(function(answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
-                }, function() {
-                    $scope.status = 'You cancelled the dialog.';
-                });*/
+        $scope.editarContato = function (id) {
+            $state.go('editarcontato', {contatoId: id});
         }
 
         
