@@ -14,4 +14,6 @@ public interface AgendaService {
 
     void atualizarContato(Long id, Agenda agenda);
 
+    Agenda buscarContato(Long id);
+
 }

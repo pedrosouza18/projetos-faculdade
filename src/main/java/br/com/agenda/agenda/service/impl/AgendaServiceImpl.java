@@ -37,6 +37,11 @@ public class AgendaServiceImpl implements AgendaService {
     public void atualizarContato(Long id, Agenda agenda) {
         repository.save(agenda);
     }
+
+    @Override
+    public Agenda buscarContato(Long id) {
+        return repository.findOne(id);
+    }
 }
 
 

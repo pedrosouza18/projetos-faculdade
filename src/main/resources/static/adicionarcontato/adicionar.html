@@ -1,6 +1,7 @@
 <md-content class="md-padding" layout-xs="column" layout="column" ng-controller="AdicionarContatoCtrl">
     <div flex layout="column">
         <md-card layout="column">
+            <md-progress-linear md-mode="indeterminate" ng-if="contatoSalvo"></md-progress-linear>
             <div flex layout="row">
                 <md-input-container flex>
                     <label>Nome</label>

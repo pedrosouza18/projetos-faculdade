@@ -24,7 +24,6 @@
                             <md-list-item class="md-3-line" ng-repeat="item in listResult | filterFavoritos: favoritos | orderBy : 'nome' track by $index">
                                 <div class="md-list-item-text" layout="row" flex>
                                     <div class="md-list-item-text" layout="column" flex="80">
-                                        <p>{{item}}</p>
                                         <h3>{{ item.nome }}</h3>
                                         <h4>{{ item.telefone |tel}}</h4>
                                         <p>{{ item.endereco | uppercase}}</p>
@@ -41,7 +40,7 @@
                                             </md-button>
                                         </div>
                                         <div layout="row" style="margin-left: -16px;">
-                                            <md-button class="md-icon-button md-accent m10" ng-click="editarContato($event, item)" aria-label="Editar contato">
+                                            <md-button class="md-icon-button md-accent m10" ng-click="editarContato(item.id)" aria-label="Editar contato">
                                                 <i class="material-icons cor-icone">mode_edit</i>
                                                 <md-tooltip class="h4">Editar contato</md-tooltip>
                                             </md-button>

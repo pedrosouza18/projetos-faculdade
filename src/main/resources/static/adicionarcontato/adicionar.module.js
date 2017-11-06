@@ -23,8 +23,8 @@ app.config(function ($stateProvider) {
 
 app.factory('buscaContato', function($resource) {
 
-    return $resource('agenda', {}, {
-        buscar : {
+    return $resource('agenda/:contatoId', {}, {
+        get : {
             method: 'GET'
         }
     });

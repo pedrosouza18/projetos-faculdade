@@ -44,4 +44,10 @@ public class AgendaController {
         agendaService.deletarContato(id);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Agenda buscarContato(@PathVariable("id") Long id){
+        return agendaService.buscarContato(id);
+    }
+
 }
