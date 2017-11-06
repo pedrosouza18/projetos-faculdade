@@ -31,6 +31,7 @@ angular.module('agenda.listarContatos')
         buscaContatos.query()
             .$promise.then(function (data) {
                 $scope.listResult = data;
+                console.log($scope.listResult);
             })
             .catch(function (response) {
                 console.log(response);
@@ -87,28 +88,13 @@ angular.module('agenda.listarContatos')
 
 
         $scope.adicionarContato = function(ev) {
-            $mdDialog.show({
-                controller: DialogController,
-                locals: {
-                    object: $scope.object,
-                    lista: $scope.listResult,
-                    fnSave: $scope.salvaContato
-                },
-                templateUrl: 'listarcontatos/dialog/adicionar-contato.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true
-            })
-            .then(function(answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function() {
-                $scope.status = 'You cancelled the dialog.';
-            });
+            $state.go('adicionar');
         };
 
-        $scope.salvaContato = function (object, lista) {
-            if(object.id){
-                atualizarContato.update({contatoId: object.id}, object);
+        $scope.salvaContato = function (item, lista) {
+            if(item.id){
+                console.log('atualizar');
+                atualizarContato.update({contatoId: item.id}, item);
                     $mdToast.show({
                         template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato atualizado com sucesso!</b></div></md-toast>',
                         hideDelay: 3000,
@@ -116,9 +102,10 @@ angular.module('agenda.listarContatos')
                 });
             } else {
 
-                lista.push(object);
+                console.log('salvar');
+                lista.push(item);
 
-                salvarContato.save(object);
+                salvarContato.save(item);
                 $mdToast.show({
                     template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato salvo com sucesso!</b></div></md-toast>',
                     hideDelay: 3000,
@@ -128,7 +115,8 @@ angular.module('agenda.listarContatos')
         }
         
         $scope.editarContato = function (ev, item) {
-            $mdDialog.show({
+            console.log(item.id);
+            /*$mdDialog.show({
                 controller: DialogController,
                 locals: {
                     object: item,
@@ -144,34 +132,9 @@ angular.module('agenda.listarContatos')
                     $scope.status = 'You said the information was "' + answer + '".';
                 }, function() {
                     $scope.status = 'You cancelled the dialog.';
-                });
+                });*/
         }
 
-        function DialogController($scope, $mdDialog,object, lista, fnSave) {
-
-            $scope.object = object;
-
-            $scope.lista = lista;
-
-            $scope.action = false;
-
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
-
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
-
-            $scope.salvar = function() {
-                $scope.action = true;
-                setTimeout(function(){
-                    fnSave($scope.object, $scope.lista);
-                    $scope.action = false;
-                    $mdDialog.hide();
-                }, 3500);
-            };
-        }
         
         $scope.marcarFavorito = function (item) {
             $scope.actionList = true;

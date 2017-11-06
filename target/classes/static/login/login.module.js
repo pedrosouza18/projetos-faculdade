@@ -11,4 +11,14 @@ app.config(function ($stateProvider) {
 
     $stateProvider.state(loginState);
 
+})
+
+app.factory('buscaLogin', function($resource) {
+
+    return $resource('login', {}, {
+        query : {
+            method: 'GET',
+            isArray: true
+        }
+    });
 });
