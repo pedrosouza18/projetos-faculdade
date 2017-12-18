@@ -72,6 +72,7 @@ angular.module('agenda.listarContatos')
             });
         }
 
+
         $scope.mostraFavoritos = function(){
 
             if($scope.favoritos == true) {
@@ -83,7 +84,7 @@ angular.module('agenda.listarContatos')
         }
 
 
-        $scope.adicionarContato = function(ev) {
+        $scope.adicionarContato = function() {
             $state.go('adicionar');
         };
         
@@ -96,22 +97,24 @@ angular.module('agenda.listarContatos')
             $scope.actionList = true;
 
             setTimeout(function(){
-                atualizarContato.update({contatoId: item.id}, item);
-                if(item.favorito == true){
-                    $scope.actionList = false;
-                    $mdToast.show({
-                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato adicionado aos favoritos!</b></div></md-toast>',
-                        hideDelay: 2000,
-                        position: 'right'
-                    });
-                } else {
-                    $scope.actionList = false;
-                    $mdToast.show({
-                        template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato removido dos favoritos!</b></div></md-toast>',
-                        hideDelay: 2000,
-                        position: 'right'
-                    });
-                }
+                atualizarContato.update({contatoId: item.id}, item)
+                    .$promise.then(function(data){
+                        if(item.favorito == true){
+                            $scope.actionList = false;
+                            $mdToast.show({
+                                template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato adicionado aos favoritos!</b></div></md-toast>',
+                                hideDelay: 2000,
+                                position: 'right'
+                            });
+                        } else {
+                            $scope.actionList = false;
+                            $mdToast.show({
+                                template: '<md-toast class="md-toast"><div class="md-toast-content success"><b>Contato removido dos favoritos!</b></div></md-toast>',
+                                hideDelay: 2000,
+                                position: 'right'
+                            });
+                        }
+                })
             }, 3500);
         }
 
