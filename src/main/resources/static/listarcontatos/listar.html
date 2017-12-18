@@ -7,7 +7,7 @@
                         <div class="md-toolbar-tools" flex>
                             <span>Contatos</span>
                             <div flex layout-align="end center" layout="row">
-                                <md-switch ng-model="favoritos" aria-label="Switch 1">
+                                <md-switch ng-model="favoritos" aria-label="Switch 1" ng-change="mostraFavoritos()">
                                     <span style="font-size: 16px;">Exibir favoritos</span>
                                 </md-switch>
 
@@ -21,7 +21,7 @@
                     <md-progress-linear md-mode="indeterminate" ng-if="actionList"></md-progress-linear>
                     <md-content>
                         <md-list flex class="lista-contatos white-bg">
-                            <md-list-item class="md-3-line" ng-repeat="item in listResult | filterFavoritos: favoritos | orderBy : 'nome' track by $index">
+                            <md-list-item class="md-3-line" ng-repeat="item in listaFiltrada | orderBy : 'nome' track by $index">
                                 <div class="md-list-item-text" layout="row" flex>
                                     <div class="md-list-item-text" layout="column" flex="80">
                                         <h3>{{ item.nome }}</h3>

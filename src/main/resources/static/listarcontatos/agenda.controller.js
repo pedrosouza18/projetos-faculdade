@@ -1,22 +1,5 @@
 angular.module('agenda.listarContatos')
-    .filter('filterFavoritos', function () {
-        return function (lista, exibirFavoritos) {
-            var array = [];
-                lista.forEach(function (contato) {
-                    if(exibirFavoritos == true) {
-                        if(contato.favorito == true) {
-                            array.push(contato);
-                        }
-                    }
-                    else{
-                        array.push(contato);
-                    }
-                });
 
-            return array;
-        }
-
-    })
     .controller('ListarCtrl', ['$scope', '$state', 'buscaContatos', '$mdDialog', 'salvarContato', 'atualizarContato', '$mdToast', 'excluirContato' , function($scope , $state, buscaContatos, $mdDialog, salvarContato, atualizarContato,$mdToast, excluirContato) {
 
         $scope.map;
@@ -26,12 +9,13 @@ angular.module('agenda.listarContatos')
 
         $scope.actionList = false;
 
-        $scope.listResult = [];
+        let listResult = [];
 
         function mostrarContatos() {
             buscaContatos.query()
                 .$promise.then(function (data) {
-                $scope.listResult = data;
+                listResult = data;
+                $scope.listaFiltrada = angular.copy(listResult);
             })
             .catch(function (response) {
                 console.log(response);
@@ -53,7 +37,7 @@ angular.module('agenda.listarContatos')
         $scope.initMap();
 
         $scope.mostraLocalizacao = function (id) {
-            $scope.listResult.forEach(function (contato) {
+            $scope.listaFiltrada.forEach(function (contato) {
                 if(id == contato.id){
                     $scope.geocoder = new google.maps.Geocoder();
 
@@ -86,6 +70,16 @@ angular.module('agenda.listarContatos')
                 map: $scope.map,
                 position: latlng
             });
+        }
+
+        $scope.mostraFavoritos = function(){
+
+            if($scope.favoritos == true) {
+                $scope.listaFiltrada = $scope.listaFiltrada.filter(contato => contato.favorito);
+            } else {
+                $scope.listaFiltrada = listResult;
+            }
+
         }
 
 
@@ -126,10 +120,10 @@ angular.module('agenda.listarContatos')
             setTimeout(function(){
                 excluirContato.delete({contatoId: id})
                     .$promise.then(function (data) {
-                        $scope.listResult.forEach(function (contato) {
+                        $scope.listaFiltrada.forEach(function (contato) {
                             if(contato.id == id){
-                                var indice = $scope.listResult.indexOf(contato);
-                                $scope.listResult.splice(indice, 1);
+                                var indice = $scope.listaFiltrada.indexOf(contato);
+                                $scope.listaFiltrada.splice(indice, 1);
                             }
                         });
                     $scope.actionList = false;
