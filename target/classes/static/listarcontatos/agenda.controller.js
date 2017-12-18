@@ -84,7 +84,7 @@ angular.module('agenda.listarContatos')
         }
 
 
-        $scope.adicionarContato = function(ev) {
+        $scope.adicionarContato = function() {
             $state.go('adicionar');
         };
         

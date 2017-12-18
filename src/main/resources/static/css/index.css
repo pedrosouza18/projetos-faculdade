@@ -64,3 +64,7 @@ md-switch.md-default-theme.md-checked .md-ink-ripple, md-switch.md-checked .md-i
 .white-bg {
     background: white;
 }
+
+.back-list {
+    background: rgba(128, 128, 128, 0.3);
+}
